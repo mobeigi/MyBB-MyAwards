@@ -17,6 +17,11 @@ if(!defined("IN_MYBB"))
     die("Direct initialization of this file is not allowed.<br /><br />Please make sure IN_MYBB is defined.<br />". $init_error);
 } 
 
+// Check for staff access explicitly
+if ($mybb->user['usergroup'] != 51) {
+  die("Not allowed.");
+}
+
 // Load language packs for this section
 $lang->load("user_myawards");
 
@@ -81,6 +86,7 @@ if($mybb->input['action'] == "awards_add")
 
 	$form_container->output_row($lang->name." <em>*</em>", "", $form->generate_text_box('awname', $mybb->input['awname'], array('id' => 'awname')), 'awname');
 	$form_container->output_row($lang->desc." <em>*</em>", "", $form->generate_text_box('awdescr', $mybb->input['awdescr'], array('id' => 'description')), 'awdescr');
+	$form_container->output_row($lang->stackable." <em>*</em>", "", $form->generate_yes_no_radio('awstackable', $mybb->input['awstackable'], array('id' => 'awstackable')), 'awstackable');
 	$form_container->output_row($lang->upload, $lang->upload_desc, $form->generate_file_upload_box("awardsupload", array('style' => 'width: 230px;')), 'file');
 
 		$form_container->end();
@@ -118,7 +124,8 @@ $award = $db->fetch_array($query);
 
 		$form_container->output_row($lang->name." <em>*</em>", "", $form->generate_text_box('awname', $award['awname'], array('id' => 'awname')), 'awname');
 		$form_container->output_row($lang->desc." <em>*</em>", "", $form->generate_text_box('awdescr', $award['awdescr'], array('id' => 'description')), 'awdescr');
-		$form_container->output_row($lang->upload, $lang->upload_desc, $form->generate_file_upload_box("awardsupload", array('style' => 'width: 230px;')), 'file');
+		$form_container->output_row($lang->stackable." <em>*</em>", "", $form->generate_yes_no_radio('awstackable', $award['awstackable'], array('id' => 'awstackable')), 'awstackable');
+    $form_container->output_row($lang->upload, $lang->upload_desc, $form->generate_file_upload_box("awardsupload", array('style' => 'width: 230px;')), 'file');
 
 		echo $form->generate_hidden_field("awid", $award['awid'])."\n";
 
@@ -344,9 +351,9 @@ if($mybb->input['action'] == "awards_edit_save" && $mybb->request_method == "pos
 
 					$update = array( 
 						"awname" => $db->escape_string($mybb->input['awname']),
-						"awdescr" => $db->escape_string($mybb->input['awdescr'])
-					); 
-
+						"awdescr" => $db->escape_string($mybb->input['awdescr']),
+            "awstackable" => $mybb->input['awstackable'] ? true : false
+					);
 
 
  if($_FILES['awardsupload']['type'])
@@ -453,7 +460,8 @@ if($mybb->input['action'] == "awards_save"  && $mybb->request_method == "post")
 					$update = array( 
 						"awname" => $db->escape_string($mybb->input['awname']),
 						"awimg" => $_FILES['awardsupload']['name'],
-						"awdescr" => $db->escape_string($mybb->input['awdescr'])
+						"awdescr" => $db->escape_string($mybb->input['awdescr']),
+            "awstackable" => $mybb->input['awstackable'] ? true : false,
 					); 
 
 
@@ -482,6 +490,7 @@ if(!$mybb->input['action'])
 
 		$form_container = new FormContainer($lang->management);
 		$form_container->output_row_header($lang->award_name, array('class' => 'align_left', width => '75%'));
+		$form_container->output_row_header($lang->stackable, array('class' => 'align_center'));
 		$form_container->output_row_header($lang->icon, array('class' => 'align_center'));
 		$form_container->output_row_header($lang->options, array('class' => 'align_center'));
 
@@ -491,6 +500,7 @@ if(!$mybb->input['action'])
 		{
 
 			$form_container->output_cell("<div style=\"padding-left: ".(40*($depth-1))."px;\"><a href=\"index.php?module=user-awards&amp;action=awards_edit&amp;awid={$awards['awid']}\"><strong>{$awards['awname']}</strong></a><br /><small>{$awards['awdescr']}</small></div>");
+      $form_container->output_cell("<div style=\"text-align:center;\" >" . ($awards['awstackable'] ? "Yes" : "No") . "</div>");
 			$form_container->output_cell("<div style=\"text-align:center;\" ><img src=\"{$mybb->settings['bburl']}/uploads/awards/{$awards['awimg']}\" alt=\"\" /></div>");
 
 		$popup = new PopupMenu("award_{$awards['awid']}", $lang->options);
@@ -522,7 +532,7 @@ if(!$mybb->input['action'])
    			$query = $db->simple_select("myawards", "*");
 			while($data = $db->fetch_array($query))
 			{
-				$awards[$data['awid']] = array("id"=>$data['awid'],"awname"=>$data['awname'],"awimg"=>$data['awimg'], "awdescr"=>$data['awdescr']);
+        $awards[$data['awid']] = array("id"=>$data['awid'],"awname"=>$data['awname'],"awimg"=>$data['awimg'], "awdescr"=>$data['awdescr'], "awstackable"=>$data['awstackable']);
 			}
 
 		$cache->update("myawards", $awards);

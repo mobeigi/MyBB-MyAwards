@@ -37,7 +37,7 @@ function my_awards_info()
 		'author'		=> 'Jesse Labrocca',
 		'authorsite'	=> 'http://www.mybbcentral.com',
 		'version'		=> '2.4',
-		'compatibility'	=> '16*',
+		'compatibility'	=> '18*',
 	);
 }
 
@@ -51,7 +51,8 @@ function my_awards_install()
 			awid smallint(4) NOT NULL auto_increment,
 		    awname varchar(64) NOT NULL,
 		    awimg varchar(64) NOT NULL,
-			awdescr varchar(255) NOT NULL,
+        awdescr varchar(255) NOT NULL,
+      	awstackable	bit(1) NOT NULL,
 			PRIMARY KEY  (awid)
 		) ENGINE=innodb;");
   	}
@@ -231,7 +232,7 @@ function awards_postbit(&$post)
         }
 
     $awards = "";
-    $awards = "<span style=\"white-space:normal; width: 100%;\">";
+    $awards = "<span style=\"white-space:normal; width: 100%;\" class=\"my_awards_postbit\">";
 
 foreach ($pawards as $key=>$value)
     {
@@ -272,7 +273,7 @@ function awards_pmbit(&$post)
 		$query = $db->simple_select("myawards_users", "*", "awuid={$awuid}");
 
 		$awards = "";
-		$awards = "<span style=\"white-space:normal; width: 100%;\">";
+		$awards = "<span style=\"white-space:normal; width: 100%;\" class=\"my_awards_postbit\">";
 
 		while($results = $db->fetch_array($query))
 		{
@@ -933,7 +934,7 @@ function awards_cache_plugin()
 		$query = $db->simple_select("myawards", "*");
 		while($data = $db->fetch_array($query))
 		{
-			$awards[$data['awid']] = array("id"=>$data['awid'],"awname"=>$data['awname'],"awimg"=>$data['awimg'], "awdescr"=>$data['awdescr']);
+			$awards[$data['awid']] = array("id"=>$data['awid'],"awname"=>$data['awname'],"awimg"=>$data['awimg'], "awdescr"=>$data['awdescr'], "awstackable"=>$data['awstackable']);
 		}
 
 	$cache->update("myawards", $awards);

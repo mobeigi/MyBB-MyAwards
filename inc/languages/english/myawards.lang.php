@@ -20,6 +20,7 @@ $l['reason'] = "Reason";
 $l['date'] = "Date Given";
 $l['award'] = "Award";
 $l['description'] = "Description";
+$l['stackable'] = "Stackable";
 $l['noresults'] = "No awards for this user.";
 $l['can_manage_awards'] = "Can Manage Awards?";
 $l['none_given'] = "No results found for this award search.";

@@ -33,6 +33,7 @@ $l['granted_failure'] = "That username was not found. Please try again.";
 $l['awgive_header'] = "Give an award";
 $l['user_w'] = "Please enter the username of the recipient.";
 $l['desc'] = "Description";
+$l['stackable'] = "Stackable";
 $l['reason'] = "Reason";
 $l['reason_w'] = "Why has this person recieved the award?";
 $l['pollid'] = "Poll ID";

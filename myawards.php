@@ -151,7 +151,8 @@ else {
 		foreach($cawards as $results)
 		{
 			$bgcolor = alt_trow();
-			
+			$award_stackable = ($results['awstackable'] ? "Yes" : "No");
+    
 			eval("\$awbody  .= \"".$templates->get("my_awards_page_main_rows")."\";");
 		}
 	}
