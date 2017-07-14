@@ -1,0 +1,34 @@
+Mybb Central Software Commercial License version 1.0
+=================================
+
+The Software that accompanies this licence is the property of Jesse Labrocca and is protected by copyright laws and international copyright treaties. Jesse Labrocca continues to own the Software and you will be entitled to use the Software in certain ways after your acceptance of this licence. Your right to use the Software will be within the limits set forth in this license and applicable law. 
+
+Except as may be modified by a licence addendum which accompanies this licence, your rights and obligations with respect to the use of this Software are as follows: 
+
+YOU MAY: 
+
+(i) install and use the Software under the provisions of this licence. 
+
+(ii) modify the code for use on any domains you own
+
+While Jesse Labrocca is and will be the owner and copyright holder of the Jesse Labrocca source code, amendments and new coding will be the property of the originating party. 
+
+YOU MAY NOT: 
+
+(i) modified software may not be distributed under any of the product names of Jesse Labrocca, unless otherwise is agreed upon. Except as a reference, i.e. like product XYZ powered by Jesse Labrocca
+
+(ii) rebrand the Software for resale or any other purpose. 
+
+(iii) licence and resell the Software and/or amendments, modifications and new components. 
+
+(iv) install more than 1 copy on a single domain per license owned
+
+(v) transfer through sale this license to a new holder
+
+DISCLAIMER OF DAMAGES: 
+
+In no event will Jesse Labrocca or any contributors or partners of Jesse Labrocca be liable to you for any special, consequential, indirect or similar damages, including any lost profits or lost data arising from the use or inability to use the Software. The Software comes with no warranty. 
+
+GENERAL: 
+
+The laws of The United States of America and International Laws will govern this Agreement. This Agreement may only be modified by a written document that has been signed by Jesse Labrocca.
